@@ -20,7 +20,7 @@ html, body {
     outline: none;
     margin: 0.5rem;
     border-radius: 0.3rem;
-    width: 10rem;
+    width: 20rem;
 }
 
 #solve-button {
@@ -43,8 +43,83 @@ html, body {
 }
 
 #solution-display > .equation-component {
-    background-color: #008CBA;
+    background-color: #333333;
     color: white;
     font-size: 2rem;
     padding: 0.1rem 1rem;
+    margin-left: 0.25rem;
+    align-self: center;
+}
+
+#solution-display > .equation-component-open-brac {
+    background-color: #b66700;
+    color: white;
+    font-size: 2rem;
+    padding: 0.1rem 1rem;
+    margin-left: 0.25rem;
+    align-self: center;
+}
+
+#solution-display > .equation-component-close-brac {
+    background-color: #b66700;
+    color: white;
+    font-size: 2rem;
+    padding: 0.1rem 1rem;
+    margin-left: 0.25rem;
+    align-self: center;
+}
+
+#solution-display > .equation-component-plus {
+    background-color: #00ffea;
+    color: rgb(255, 0, 0);
+    font-size: 2rem;
+    padding: 0.1rem 1rem;
+    margin-left: 0.25rem;
+    align-self: center;
+}
+
+#solution-display > .equation-component-minus{
+    background-color: #00ffea;
+    color: rgb(255, 0, 0);
+    font-size: 2rem;
+    padding: 0.1rem 1rem;
+    margin-left: 0.25rem;
+    align-self: center;
+}
+
+#solution-display > .equation-component-times{
+    background-color: #00ffea;
+    color: rgb(255, 0, 0);
+    font-size: 2rem;
+    padding: 0.1rem 1rem;
+    margin-left: 0.25rem;
+    align-self: center;
+}
+
+#solution-display > .equation-component-divide{
+    background-color: #00ffea;
+    color: rgb(255, 0, 0);
+    font-size: 2rem;
+    padding: 0.1rem 1rem;
+    margin-left: 0.25rem;
+    align-self: center;
+}
+
+#solution-display > .equation-component-equal{
+    /* background-color: #008CBA; */
+    color: rgb(66, 66, 66);
+    font-size: 2rem;
+    padding: 0.1rem 1rem;
+    margin-left: 0.25rem;
+    align-self: center;
+}
+
+#solution-display > .equation-component-solution {
+    /* background-color: #008CBA; */
+    border: red 4px solid;
+    color: rgb(255, 0, 0);
+    font-size: 2.5rem;
+    padding: 0.1rem 1rem;
+    margin-left: 0.25rem;
+    align-self: center;
 }

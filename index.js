@@ -18,86 +18,97 @@ solveButton.addEventListener("click", function() {
     const equationOperator = equationCharsOnly.filter( (char) => {
         return isNaN(char)
     })
-    console.log(equationOperator)
 
-    let newEquationString = equationCharsOnly.join("")
-    //console.log(newEquationString)
-    let finalEqComp = []
+    // Save location of Operators
+    const operatorPos = []
+    const numberComponents = []
+    let counter = 0
     
-    // 12+30*21+4-15 -> 631 // my test formula
-
-    equationComponents = newEquationString.split(equationOperator[0])
-    console.log("EqC:", equationComponents)
-    console.log(isNaN(equationComponents[1]))
-
-    if (equationOperator.length > 1) {
-        for(let i = 0; i < equationComponents.length; i++){
-            if(isNaN(equationComponents[i])){
-                const temp = equationComponents[i]
-                const tempArr = temp.split("")
-                const tempOp = tempArr.filter((char) => {
-                    return isNaN(char)
-                })
-                console.log("temp:", temp)
-                console.log("tempArr:", tempArr)
-                console.log("tempOp:", tempOp)
-                const tempComp = temp.split(tempOp)
-                console.log("tempComp:", tempComp)
-                tempComp.forEach((comp) => {
-                    finalEqComp.push(comp)
-                })
-            } else {
-                finalEqComp.push(equationComponents[i])
+    for(let i = 0; i < equationCharsOnly.length; i++) {
+        if(isNaN(equationCharsOnly[i])){
+            operatorPos.push(counter)
+            counter++
+        } else if((!isNaN(equationCharsOnly[i]))) {
+            if(isNaN(equationCharsOnly[i+1])){
+                counter++
             }
         }
-    } else {
-        equationComponents.forEach((comp) => {
-            finalEqComp.push(comp)
-        })
     }
 
-    console.log("FC: ", finalEqComp)
+    console.log("EqChars: ", equationCharsOnly)     // <--------------
+    console.log("EqOp: ", equationOperator)         // <--------------
+    console.log("OpPos: ", operatorPos)             // <--------------
+    
+    let newEquationString = equationCharsOnly.join("")
     
 
-    // for(let i = 0; i < equationOperator.length; i++){
-    //     equationComponents = newEquationString.split(equationOperator[i])
-    //     console.log("EqC:", equationComponents)
-    //     finalEqComp.push(equationComponents.shift())
-    // }
+    solution = eval(newEquationString) // solve the math problem
 
-    // console.log("FC: ", finalEqComp)
+    // Create number component chunks
+    for(let i = 0; i < equationCharsOnly.length; i++){
+        if(isNaN(equationCharsOnly[i])){
+            equationCharsOnly[i]=" "
+        }
+    }
+    console.log("EqChars 2: ", equationCharsOnly)   // <--------------
+    const tempString = equationCharsOnly.join("")
+    const finalEqComp = tempString.split(" ")
+    console.log("FinEqComp", finalEqComp)           // <--------------
+    while(finalEqComp.indexOf("") !== -1){
+        for(let i = 0; i < finalEqComp.length; i++){
+            if(finalEqComp[i] === ""){
+                finalEqComp.splice(i, 1)
+            }
+        }
+    }
     
+    console.log("FinEqComp 2", finalEqComp)         // <--------------
 
-    solution = eval(newEquationString)
+    for(let i = 0; i < equationOperator.length; i++){
+        finalEqComp.splice(operatorPos[i], 0, equationOperator[i])
+    }
+
+    console.log("FinEqComp 3", finalEqComp)         // <--------------
+
+    for(let i = 0; i < finalEqComp.length; i++){
+        const divElement = document.createElement("div")
+              
+        switch(finalEqComp[i]){
+            case "(":
+                divElement.classList.add("equation-component-open-brac")
+                break;
+            case ")":
+                divElement.classList.add("equation-component-close-brac")
+                break;
+            case "+":
+                divElement.classList.add("equation-component-plus")
+                break;
+            case "-":
+                divElement.classList.add("equation-component-minus")
+                break;
+            case "*":
+                divElement.classList.add("equation-component-times")
+                break;
+            case "/":
+                divElement.classList.add("equation-component-divide")
+                break;
+            default:
+                divElement.classList.add("equation-component")
+        }
+
+        divElement.innerText = `${finalEqComp[i]}`
+        document.getElementById("solution-display").appendChild(divElement)
+    }
     
+    const divEqElement = document.createElement("div")
+    divEqElement.classList.add("equation-component-equal")
+    divEqElement.innerText = `=`
+    document.getElementById("solution-display").appendChild(divEqElement)
 
-    // const equationComponents = newEquationString.split(equationOperator)
-    // const compA = parseInt(equationComponents[0])
-    // const compB = parseInt(equationComponents[1])
-    
-
-    // switch(equationOperator[0]) {
-    //     case "+":
-    //         solution = compA + compB
-    //         break;
-    //     case "-":
-    //         solution = compA - compB
-    //         break;
-    //     case "*":
-    //         solution = compA * compB
-    //         break;
-    //     case "/" :
-    //         solution = compA / compB
-    //         break;
-    //     default:
-    //         solution = "Operator was not recognized"
-    // }
-
-    const divElement = document.createElement("div")
-    divElement.classList.add("equation-component")
-    divElement.innerText = `${solution}`
-
-    document.getElementById("solution-display").appendChild(divElement)
+    const divSolElement = document.createElement("div")
+    divSolElement.classList.add("equation-component-solution")
+    divSolElement.innerText = `${solution}`
+    document.getElementById("solution-display").appendChild(divSolElement)
     
 })
 
